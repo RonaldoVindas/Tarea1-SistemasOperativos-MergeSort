@@ -139,29 +139,6 @@ void mergeSortParalelizado(int arr[], int size, int cantHilos) {
     }
 }
 
-
-/*int calcularModa(int arr[], int size) {
-    int maxCant = 0;
-    int moda = -1;
-
-    for (int i = 0; i < size; i++) {
-        int cant = 0;
-
-        for (int j = 0; j < size; j++) {
-            if (arr[j] == arr[i]) {
-                cant++;
-            }
-        }
-
-        if (cant > maxCant) {
-            maxCant = cant;
-            moda = arr[i];
-        }
-    }
-
-    return moda;
-}*/
-
 void *calcularModaParcial(void *args) {
     ThreadModaArgs *threadArgs = (ThreadModaArgs *)args;
     int *arr = threadArgs->arr;
@@ -232,17 +209,12 @@ int calcularModa(int *arr, int size, int numThreads) {
     return modaGlobal;
 }
 
-
-
-
-
-
 int main() {
 
     int cantidadNumeros;
     int numHilos;
 
-    printf("Ingrese la cantidad de números: ");
+    printf("Ingrese la cantidad de numeros: ");
     scanf("%d", &cantidadNumeros);
 
     printf("Ingrese la cantidad de hilos: ");
@@ -260,18 +232,13 @@ int main() {
     generadorNumerosAleatorios(vector, cantidadNumeros);
     memcpy(vectorCopia, vector, sizeof(vector));
 
-    /* printf("Vector sin ordenar:\n");
-    for (int i = 0; i < cantidadNumeros; i++) {
-        printf("Numero Aleatorio: %d\n", vector[i]);
-    } */
-
     inicioRecursivo = clock();
     mergeSortRecursivo(vector, 0, cantidadNumeros -1);
     finRecursivo = clock();
 
     tiempoTranscurridoRecursivo = ((double) (finRecursivo - inicioRecursivo)) / CLOCKS_PER_SEC;
 
-    printf("Tiempo transcurrido del MergeSort resursivo: %f segundos\n", tiempoTranscurridoRecursivo);
+    printf("Tiempo transcurrido del MergeSort recursivo: %f segundos\n", tiempoTranscurridoRecursivo);
 
     inicioParalelizado = clock();
     mergeSortParalelizado(vectorCopia, cantidadNumeros, numHilos);
@@ -281,11 +248,7 @@ int main() {
 
     printf("Tiempo transcurrido del MergeSort paralelizado: %f segundos\n", tiempoTranscurridoParalelizado);
 
-
-    //int moda = calcularModa(vectorCopia, cantidadNumeros);
-
     int moda = calcularModa(vectorCopia, cantidadNumeros, 2);
-
 
     if (moda != -1) {
         printf("La moda es: %d\n", moda);

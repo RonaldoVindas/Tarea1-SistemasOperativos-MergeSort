@@ -1,0 +1,15 @@
+-¿El algoritmo de ordenamiento presenta regiones de memoria compartida? ¿Cuáles son esas regiones, qué datos guardan y porqué son compartidos? 10%
+
+Sí, la región de memoria compartida corresponde al arreglo "arr" que contiene los datos que se están intentando ordenar. Se comparten dado a que los hilos acceden al mismo arreglo.
+
+-¿El algoritmo de ordenamiento presenta regiones críticas? ¿De qué línea a qué línea se encuentran esas regiones? Discuta sus estrategias para evitar condiciones de carrera. 30%
+
+Las regiones críticas suceden cuando los hilos intentan escribir en la parte compartida del arreglo después de haber ordenado su parte. La estrategia utilizada para evitar condiciones de carrera fue crear pequeñas copias de las partes del arreglo que le correspondía a cada hilo, así evitaba concurrencia al escribir el arreglo compartido.
+
+-¿El algoritmo de Moda presenta regiones de memoria compartida? ¿Cuáles son esas regiones, qué datos guardan y porqué son compartidos? 10%
+
+El algoritmo de Moda Paralelizada, de manera similar al MergeSort Paralelizado, su región de memoria compartida es el arreglo "arr" que tiene los datos donde se está calculando la moda.  
+
+-¿El algoritmo de Moda presenta regiones críticas? ¿De qué línea a qué línea se encuentran esas regiones? Discuta sus estrategias para evitar condiciones de carrera. 30%
+
+En el algoritmo de Moda Paralelizada existe una región crítica (Más precisamente en la función de "calcularModaParcial") al escribir las variables compartidas que guardan la moda y la frecuencia. Se procuró usar la Exclusión Mutua, donde cada hilo al encontrar su moda local daquiere un mutex antes de actualizar la moda global y su frecuencia, garantizando que solo un hilo pueda actualizar estas variables a la vez.
